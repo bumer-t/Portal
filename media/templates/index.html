@@ -1,0 +1,102 @@
+<html>
+	<head>
+		<title>My test-site</title>
+	</head>
+	<body>
+<!--              ХИДЕР                -->
+		<table width="100%" border='0'>
+			<tr height="50">
+				<td colspan=3  align='center'>
+			 		<h2>Welcome to my portal :) </h2>
+			 	</td>
+			</tr>
+			<tr width="100%">
+				<td width="10%" >
+				</td>
+				<td bgcolor="#11FF11"  border="0" bordercolor="000000" width="80%" height="172">
+					<table border='1' width="100%" height="100%">				
+							<tr width="100%" align='right'>					
+								<td width="20%">
+									<link rel="stylesheet" href="{{ STATIC_URL }}css/style.css" /> 
+									{# <link rel="stylesheet" href="/static/css/style.css" /> #}
+									<img src="{{ STATIC_URL }}img/logo.jpg" />
+									{% block css %}{% endblock %}
+								</td>
+								<td width="60%">
+									<table width="100%" width="100%">	
+										<tr>
+											<td>
+												<a href="{% url news.last_news %}">News</a>
+											</td>
+											<td>
+												<a href="">Истроии</a>
+											</td>
+											<td>
+												<a href="">Форум</a>
+											</td>
+											<br/><br/> 
+										</tr>
+									</table>
+								</td>
+								<td width="20%">	
+                    				{% if  user.is_authenticated %}
+                        				{{  user.username }}
+                        				<a href="{% url authorization.profile_show %}">Профиль_пользователя</a>
+                        				<a href="{% url auth_logout %}">Выйти</a>
+                    				{%  else %}
+                        				Гость<br>
+                        				<form method="post" action="{% url auth_login %}">
+	                            			{{  auth_form.as_p }}
+                            				<input type="submit"/>
+                        				</form>
+                        				<a href="{% url auth_password_reset %}">Забыли пароль?</a>
+			        					<a href="{% url registration_register %}">Регистрация</a>
+                    				{%  endif %}
+								</td>
+							</tr>
+					</table>
+							
+				</td>
+				<td width="10%">!</td>
+			</tr>
+		</table>
+<!--             /ХИДЕР                -->
+<!--             CENTER                -->	
+		<table border='0'  height="100%" width="100%">
+			<tr>
+				<td width="10%"></td>
+				<td width="80%" bgcolor="#AAAAFF">
+					{% block application %}
+					{% endblock %}
+					{% block content %}
+					{% endblock %}		
+				</td>
+				<td width="10%"></td>
+			</tr>
+		</table>
+<!--             /CENTER                -->				
+<!--              Footer                -->
+		<table width="100%">
+			<tr>
+				<td width="10%" > ! </td>
+				<td bgcolor="#FF4444"  border="0" bordercolor="000000" width="80%" height="172">
+					Footer :)
+				</td>
+				<td width="10%">!</td>
+			</tr>
+			<tr height="50">
+				
+			</tr>
+		</table>
+<!--             /Footer                -->
+	</body>
+</html>
+
+
+
+                  
+                    
+
+			        					
+			        					
+			        					

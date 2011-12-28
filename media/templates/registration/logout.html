@@ -1,0 +1,19 @@
+{% extends "index.html"  %}
+{% block content %}
+<h1>Выход</h1>
+Спасибо, что были с нами. Ждем вас снова.<br/><br/>
+{% endblock %}
+
+Конечно, это не всё — в registration/urls.py есть урлы для отправки забытого пароля и ресета. Но для минимального функционала достаточно. Единственное что — django-админка не показывает по умолчанию, активирован пользователь или нет. Поправим это. Сделаем новое приложение django-admin.py startapp customuseradmin, прописываем его в INSTALLED_APPS после django.contrib.admin и в customuseradmin/admin.py пишем что-то вроде:
+
+# -*- coding:utf-8 -*-
+from django.contrib import admin
+from django.contrib.auth.models import User, Group
+from django.contrib.auth.admin import UserAdmin    
+
+admin.site.unregister(User)
+
+class CustomUserAdmin(UserAdmin):
+    list_display = ('username', 'email', 'is_staff','is_active',)
+    list_filter = ('is_staff', 'is_superuser', 'is_active',)    
+admin.site.register(User, CustomUserAdmin)

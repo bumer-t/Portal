@@ -1,0 +1,27 @@
+<html>
+	<head>
+		<title>My test-site</title>
+	</head>
+	<body>
+		<table border='2'>
+			<tr>
+				<td>
+					<a href="{% url news.last_news %}">News</a>
+				</td>
+				<td>
+					<a href="">Профиль_пользователя</a>
+				</td>
+				<td>
+					<a href="">Истроии</a>
+				</td>
+				<td>
+					<a href="">Форум</a>
+				</td>
+			</tr>
+		</table>
+		<br/><br/> 
+		{% block application %}
+			<h2></>Welcome to site</h2>
+		{% endblock %}
+	</body>
+</html>

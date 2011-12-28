@@ -1,0 +1,12 @@
+<html>
+	<head>
+		<title>My test-site</title>
+	</head>
+	<body>
+		<a href="{% url news.last_news %}">News</a>
+		<br/>
+		{% block application %}
+			Welcome to site
+		{% endblock %}
+	</body>
+</html>
