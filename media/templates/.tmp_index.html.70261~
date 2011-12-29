@@ -29,7 +29,7 @@
 												<a href="{% url news.last_news %}">News</a>
 											</td>
 											<td>
-												<a href="">Истроии людей :)</a>
+												<a href="">Истроии</a>
 											</td>
 											<td>
 												<a href="">Форум</a>
