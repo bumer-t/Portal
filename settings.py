@@ -2,6 +2,8 @@
 # Django settings for portal project.
 
 import os.path
+import sys
+
 from django.conf import global_settings
 
 DEBUG = True
@@ -62,6 +64,12 @@ MEDIA_URL = ''
 # Example: "/home/media/media.lawrence.com/static/"
 STATIC_ROOT = os.path.join(ROOT_DIR, 'static')
 
+#PROJECT_ROOT = os.abspath(os.dirname(__file__))
+#sys.path.insert(0, os.join(PROJECT_ROOT, 'app'))
+PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
+sys.path.insert(0, os.path.join(PROJECT_ROOT, 'app'))
+
+
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
 STATIC_URL = '/static/'
@@ -115,7 +123,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(os.path.dirname(os.path.abspath( __file__ )), 'media/templates/'),
+    os.path.join(os.path.dirname(os.path.abspath( __file__ )), 'static/templates/'),
 )
 
 
@@ -144,8 +152,8 @@ INSTALLED_APPS = (
     'registration', # это наш reusable app
 #    'portal.news',
     'portal',
-    'news',
-    'authorization',
+    'app.news',
+    'app.authorization',
     # test
 )
 

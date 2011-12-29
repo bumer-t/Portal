@@ -6,15 +6,15 @@ from django.template.loader import get_template #ищет и возвращае�
 from django.http import HttpResponse # основной НТТР ответ
 from django.template import RequestContext # для передачи переменных в шаблон
 
-from portal.news.models import News, Comment # подключаем модели(таблицы бд0)
-from portal.news.forms import CommentForm # подключаем чт с формы
+from app.news.models import News, Comment # подключаем модели(таблицы бд0)
+from app.news.forms import CommentForm # подключаем чт с формы
 from django.http import HttpResponseRedirect #для переадресации
 from django.core.urlresolvers import reverse
 
 from django.shortcuts import get_object_or_404
 from django.http import Http404
 from django.shortcuts import render_to_response
-from portal.authorization.views import custom_proc
+from app.authorization.views import custom_proc
 
 def last_news(request):
     news = News.objects.filter(pub_date__lte=datetime.now()).order_by("-pub_date")[:10]

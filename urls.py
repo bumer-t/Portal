@@ -22,7 +22,7 @@ urlpatterns = patterns('',
      (r'^profile/', include('authorization.urls')),
      url(r'^register/$', 'registration.views.register',{'form': RegistrationFormUniqueEmail}, name='registration_register'),
      (r'^accounts/', include('registration.urls')),
-     url(r'^$', 'portal.authorization.views.auth_show'),
+     url(r'^$', 'authorization.views.auth_show'),
      
 )
 

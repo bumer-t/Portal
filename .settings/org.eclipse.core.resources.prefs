@@ -1,5 +1,9 @@
-#Mon Dec 26 05:40:52 EET 2011
+#Thu Dec 29 14:56:05 EET 2011
 eclipse.preferences.version=1
-encoding//authorization/urls.py=utf-8
-encoding//authorization/views.py=utf-8
+encoding//app/authorization/urls.py=utf-8
+encoding//app/authorization/views.py=utf-8
+encoding//app/news/forms.py=utf-8
+encoding//app/news/urls.py=utf-8
+encoding//app/news/views.py=utf-8
 encoding/settings.py=utf-8
+encoding/urls.py=utf-8
