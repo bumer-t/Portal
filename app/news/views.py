@@ -18,7 +18,7 @@ from app.authorization.views import custom_proc
 
 def last_news(request):
     news = News.objects.filter(pub_date__lte=datetime.now()).order_by("-pub_date")[:10]
-    template = get_template("news/last_news.html")
+    template = get_template("last_news.html")
     context = RequestContext(request, {"last_news":news,})
     return HttpResponse(template.render(context))
 
@@ -44,7 +44,7 @@ def news_detail(request, news_id):
     
     comments = Comment.objects.filter(news=news).order_by("-pub_date","id")
     comment_count = comments.count()
-    template = "news/news_detail.html"
+    template = "news_detail.html"
     context = {
             "news":news,
             "form":form,

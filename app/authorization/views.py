@@ -17,7 +17,8 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-
+#forma
+from authorization.forms import EditProfileForm
 
 def custom_proc(request):
 
@@ -31,10 +32,35 @@ def profile_show(request):
         user_name = request.user.username
     else:
         user_name = 'Гость'
-    template = get_template("authorization/profile.html")
+    template = get_template("profile.html")
     context = RequestContext(request, {"user_name":user_name,})
     return HttpResponse(template.render(context))
 
+def auth_show(request, template = 'index.html'):
+    if request.POST:
+        form = AuthenticationForm(request.POST)
+    context = {}
+    return render_to_response(template, context,
+                context_instance=RequestContext(request, processors=[custom_proc]))
+
+#редактирование профиля
+def profile_edit(request):
+    if request.method == 'POST':
+        prof_edit_form = EditProfileForm(request.POST)
+        if prof_edit_form.is_valid():
+            username = prof_edit_form.cleaned_data['username']
+            birth_year = prof_edit_form.cleaned_data['birth_year']
+            gender = prof_edit_form.cleaned_data['gender']
+            email = prof_edit_form.cleaned_data['email']
+            town = prof_edit_form.cleaned_data['town']
+            return HttpResponseRedirect('/profile/')
+    else:
+        prof_edit_form = EditProfileForm()
+    template = 'profile_edit.html'
+    context = {'prof_edit_form':prof_edit_form,}    
+    return render_to_response(template, context,
+                context_instance=RequestContext(request, processors=[custom_proc]))
+#---------------
 #регистрация
 def register(request):
     if request.method == "POST":
@@ -44,10 +70,10 @@ def register(request):
             return HttpResponseRedirect("/news/")
     else:
         form = UserCreationForm()
-    return render_to_response("authorization/register.html",{
+    return render_to_response("register.html",{
         'form':form,   
     })
-
+    
 def login_view(request):
     username = request.POST.get('username','')
     password = request.POST.get('password','')
@@ -58,10 +84,3 @@ def login_view(request):
     else:
         return HttpResponseRedirect("/account/invalid/")
 
-
-def auth_show(request, template = 'index.html'):
-    if request.POST:
-        form = AuthenticationForm(request.POST)
-    context = {}
-    return render_to_response(template, context,
-                context_instance=RequestContext(request, processors=[custom_proc]))
