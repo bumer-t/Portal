@@ -19,6 +19,11 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 #forma
 from authorization.forms import EditProfileForm
+#
+from authorization.models import Profile
+#
+import PIL, os
+from PIL import Image
 
 def custom_proc(request):
 
@@ -46,13 +51,20 @@ def auth_show(request, template = 'index.html'):
 #редактирование профиля
 def profile_edit(request):
     if request.method == 'POST':
-        prof_edit_form = EditProfileForm(request.POST)
+#        import ipdb; ipdb.set_trace()
+        profile = request.user.get_profile()
+        prof_edit_form = EditProfileForm(request.POST, request.FILES, instance=profile)
         if prof_edit_form.is_valid():
-            username = prof_edit_form.cleaned_data['username']
-            birth_year = prof_edit_form.cleaned_data['birth_year']
-            gender = prof_edit_form.cleaned_data['gender']
-            email = prof_edit_form.cleaned_data['email']
-            town = prof_edit_form.cleaned_data['town']
+#            profile = Profile(name = prof_edit_form.cleaned_data['name'],
+#                              birth_year = prof_edit_form.cleaned_data['birth_year'],
+#                              sex = prof_edit_form.cleaned_data['sex'],
+#                              email = prof_edit_form.cleaned_data['email'],
+#                              sity = prof_edit_form.cleaned_data['sity'],
+#                              image_profile = prof_edit_form.cleaned_data['image_profile'],
+#                              )
+#            profile.save()
+            prof_edit_form.save()
+#            import ipdb; ipdb.set_trace()
             return HttpResponseRedirect('/profile/')
     else:
         prof_edit_form = EditProfileForm()
@@ -83,4 +95,23 @@ def login_view(request):
         return HttpResonseRedirect("/account/loggedin")
     else:
         return HttpResponseRedirect("/account/invalid/")
+    
+#Функция ресайза изображения. Автоматически изменяет размер, сохраняя пропорции:
+def imageResize(data, output_size): 
+   image = Image.open(data)
+   m_width = float(output_size[0])
+   m_height = float(output_size[1])
+   if image.mode not in ('L','RGB'):
+       image = image.convert('RGB')    
+   w_k = image.size[0]/m_width
+   h_k = image.size[1]/m_height
+   if output_size < image.size:
+       if w_k > h_k:
+           new_size = (m_width, image.size[1]/w_k)
+       else:
+           new_size = (image.size[0]/h_k, m_height)
+     
+   else:
+       new_size = image.size
+   return image.resize(new_size, Image.ANTIALIAS)
 
